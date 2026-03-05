@@ -80,6 +80,6 @@ docker save gnn4dp\_hpc:v1 \-o gnn4dp\_image.tar
 
 1. **CUDA 版本对齐**：必须通过 torch.version.cuda 确认版本。如果 Torch 是 12.1，基础镜像千万不能用 12.4，否则会导致显卡驱动初始化失败。  
 2. **路径硬编码**：Conda 环境迁移后，pip 和某些 Python 脚本内的路径会指向原 WSL2 路径。必须通过 conda-unpack 命令自动重写这些二进制文件和脚本。  
-3. **空间管理**：若镜像过大，建议在打包前确认已执行 conda clean。如果超算空间极其有限，可跳过 Docker，直接上传 GNN4DP.tar.gz 到超算解压并运行 conda-unpack 即可。
+3. **空间管理**：Singularity 在集群上尝试把 .sif 镜像解压到临时目录 /tmp 时空间不够。 echo 'export SINGULARITY_TMPDIR=/fs1/home/lizhenwar2/tmp_singularity' >> ~/.bashrc
 
 ---
